@@ -1,0 +1,33 @@
+CREATE TABLE customer_details (
+cid NUMBER(4) PRIMARY KEY,
+AC_NUMBER INT NOT NULL,
+fname VARCHAR2(12) NOT NULL,
+lname VARCHAR2(12) NOT NULL,
+username VARCHAR2(10) NOT NULL,
+password VARCHAR2(10) NOT NULL,
+dob DATE,
+CONSTRAINT fk_bank_ac FOREIGN KEY(AC_NUMBER) REFERENCES BANK_DETAILS(AC_NUMBER)
+);
+
+CREATE SEQUENCE customer_seq
+MINVALUE 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+INSERT INTO customer_details VALUES (customer_seq.NEXTVAL, 'scott', 'johnson', 'scott', 'tiger', '21-SEP-17');
+
+CREATE TABLE bank_details (
+ac_number int PRIMARY KEY,
+ac_balance NUMBER(7) DEFAULT 5000 NOT NULL
+);
+
+CREATE SEQUENCE bank_details_seq
+MINVALUE 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+INSERT INTO bank_details VALUES (bank_details_seq.NEXTVAL, DEFAULT);
+
+
