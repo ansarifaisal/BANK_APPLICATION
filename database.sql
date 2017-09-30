@@ -9,13 +9,12 @@ dob DATE,
 CONSTRAINT fk_bank_ac FOREIGN KEY(AC_NUMBER) REFERENCES BANK_DETAILS(AC_NUMBER)
 );
 
+
 CREATE SEQUENCE customer_seq
 MINVALUE 1
 INCREMENT BY 1
 NOCACHE
 NOCYCLE;
-
-INSERT INTO customer_details VALUES (customer_seq.NEXTVAL, 'scott', 'johnson', 'scott', 'tiger', '21-SEP-17');
 
 CREATE TABLE bank_details (
 ac_number int PRIMARY KEY,
