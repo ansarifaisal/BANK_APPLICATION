@@ -4,60 +4,107 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
+import com.project.daoimpl.BankAccountDAOImpl;
+import com.project.daoimpl.CustomerDAOImpl;
 import com.project.entity.BankAccount;
 import com.project.entity.Customer;
 
 public class TestClient {
 
+	// Declaring variables
+	static BankAccountDAOImpl bankAccountDAO = null;
+	static CustomerDAOImpl customerDAO = null;
+
+	// Initializing variables
+	public TestClient() {
+		bankAccountDAO = new BankAccountDAOImpl();
+		customerDAO = new CustomerDAOImpl();
+	}
+
+	// main method
 	public static void main(String[] args) throws ParseException {
-		// TODO Auto-generated method stub
-		// CustomerServiceDAO csd = new CustomerServiceDAOImpl();
-		// BankAccountServiceDAO bsd = new BankAccountServiceDAOImpl();
-		//
-		HibernateConfig config = new HibernateConfig();
 
-		Session session = config.getSessionFactory().openSession();
+		// calling constructor to initialize declared variable,
+		// we can skip this by removing the constructor
+		new TestClient();
 
-		// BankAccount bankAccount = new BankAccount();
-		// bankAccount.setBankBalance(5000);
-		// Transaction transaction = session.beginTransaction();
-		// session.save(bankAccount);
-		// bankAccount.setBankAccountNumber(1);
-		// bsd.addBankAccount(bankAccount);
-		// Customer customer = new Customer();
-		// customer.setFirstName("scott");
-		// customer.setLastName("urman");
-		// customer.setUsername("scott");
-		// customer.setPassword("tiger");
-		// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-		// java.util.Date tempdate = sdf.parse("23/09/17");
-		// java.sql.Date dob = new java.sql.Date(tempdate.getTime());
-		// customer.setDob(dob);
-		// customer.setBankAccount(bankAccount);
-		// session.save(customer);
-		// transaction.commit();
-		System.out.println("Added");
+		// Method add details in the database
+		// addBankAccountDetails();
 
-		Query query = session.createQuery("from Customer");
+		// Method to delete details
+		// deleteBankAccountDetails(17);
 
-		List<Customer> customers = query.list();
+		// Method to edit details
+		// updateBankAccountDetails();
 
-		System.out.println(customers.size());
+		// creating list
+		List<Customer> customers = customerDAO.getAll();
 
+		// display the data
 		for (Customer customer2 : customers) {
-			System.out.println(customer2.getCustomerId() + " " + customer2.getBankAccount());
+			System.out.println(customer2);
 		}
+	}
 
-		session.close();
-		// csd.addCustomer(customer);
+	private static boolean addBankAccountDetails() {
+		try {
+			BankAccount bankAccount = new BankAccount();
+			bankAccount.setBankBalance(5000);
+			bankAccountDAO.add(bankAccount);
+			Customer customer = new Customer();
+			customer.setFirstName("scott");
+			customer.setLastName("urman");
+			customer.setUsername("scott");
+			customer.setPassword("tiger");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+			java.util.Date tempdate = sdf.parse("23/09/17");
+			java.sql.Date dob = new java.sql.Date(tempdate.getTime());
+			customer.setDob(dob);
+			customer.setBankAccount(bankAccount);
+			customerDAO.add(customer);
+			System.out.println("Add Successfully!");
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 
-		// Customer customer = csd.getCustomerById(2);
-		// System.out.println(customer.getBankAccount().getBankAccountNumber());
+	private static boolean updateBankAccountDetails() {
+		try {
+			BankAccount bankAccount = new BankAccount();
+			bankAccount.setBankBalance(5000);
+			bankAccountDAO.add(bankAccount);
+			Customer customer = new Customer();
+			customer.setFirstName("scott");
+			customer.setLastName("urman");
+			customer.setUsername("scott");
+			customer.setPassword("tiger");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+			java.util.Date tempdate = sdf.parse("23/09/17");
+			java.sql.Date dob = new java.sql.Date(tempdate.getTime());
+			customer.setDob(dob);
+			customer.setBankAccount(bankAccount);
+			customerDAO.add(customer);
+			System.out.println("Edited Successfully!");
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 
+	private static boolean deleteBankAccountDetails(int id) {
+		try {
+			Customer customerr = customerDAO.get(17);
+			customerDAO.delete(customerr);
+			System.out.println("Deleted Successfully!");
+			return true;
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 
 }

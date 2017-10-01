@@ -85,4 +85,11 @@ public class Customer {
 		this.bankAccount = bankAccount;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", username=" + username + ", password=" + password + ", dob=" + dob + ", bankAccount=" + bankAccount
+				+ "]";
+	}
+	
 }
